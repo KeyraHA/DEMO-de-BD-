@@ -1,15 +1,15 @@
 # database.py
+import os
 import psycopg2
 import psycopg2.extras
 
+DATABASE_URL = os.environ.get(
+    'DATABASE_URL',
+    'postgresql://postgres:postgres@localhost:5432/ProyectoBD'
+)
+
 def get_connection():
-    return psycopg2.connect(
-        host='localhost',
-        port=5432,
-        dbname='ProyectoBD',
-        user='postgres',
-        password='postgres'
-    )
+    return psycopg2.connect(DATABASE_URL)
 
 def query(sql, params=None, fetch='all'):
     conn = get_connection()
